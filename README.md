@@ -1,8 +1,9 @@
 # README
 
-*テーブルスキーマ
+テーブルスキーマ
 
-** user
+user
+
 |項番|カラム論理名|カラム物理名|型|
 |:----|:----|:----|:----|
 |1|ユーザーid|id|integer|
@@ -10,7 +11,8 @@
 |3|メールアドレス|email|string|
 |4|パスワード|password_digest|string|
 
-** task
+task
+
 |項番|カラム論理名|カラム物理名|型|
 |:----|:----|:----|:----|
 |1|タスクid|id|integer|
@@ -21,7 +23,8 @@
 |7|内容|content|text|
 |8|ユーザーid|user_id|integer|
 
-** label
+label
+
 |項番|カラム論理名|カラム物理名|型|
 |:----|:----|:----|:----|
 |1|ラベルid|id|integer|
