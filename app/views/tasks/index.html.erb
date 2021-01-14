@@ -1,2 +1,22 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<% provide(:title, "タスク一覧") %>
+<%= link_to 'タスク登録', new_task_path %>
+<br><br>
+<table>
+  <thead>
+    <tr>
+      <th>タスク名</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.content %></td>
+        <td><%= link_to '詳細', task %></td>
+        <td><%= link_to '編集', edit_task_path(task) %></td>
+        <td><%= link_to '削除', task, method: :delete, data: { confirm: "「#{task.name}」を削除しますか？"} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
