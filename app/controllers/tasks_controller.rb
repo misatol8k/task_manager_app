@@ -11,7 +11,13 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    @task.save
+    if params[:back]
+      render :new
+    elsif @task.save
+      redirect_to tasks_url, notice: "タスクを登録しました"
+    else
+      render :new
+    end
   end
 
   def destroy
