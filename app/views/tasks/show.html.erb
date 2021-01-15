@@ -1,0 +1,12 @@
+<% provide(:title, "タスク詳細") %>
+<p>
+  <strong>タスク名</strong>
+  <%= @task.name %>
+</p>
+<p>
+  <strong>内容</strong>
+  <%= @task.content %>
+</p>
+<%= link_to '一覧に戻る', tasks_path %>
+<%= link_to '編集', edit_task_path(@task) %>
+<%= link_to '削除', @task, method: :delete, data: { confirm: "「#{@task.name}」を削除しますか？"} %>
