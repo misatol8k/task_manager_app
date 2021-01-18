@@ -1,8 +1,68 @@
 # README
 
-テーブルスキーマ
+## Install
+*Clone the repository*
 
-user
+```
+git clone git@github.com:misatol8k/task_manager_app.git
+cd project
+```
+
+*Check your Ruby version*
+
+```
+ruby -v
+```
+
+The ouput should start with something like ruby 5.2.4
+If not, install the right ruby version using rbenv (it could take a while):
+
+```
+rbenv install 5.2.4
+```
+
+*Install dependencies*
+Using Bundler
+
+*Initialize the database*
+
+```
+rails db:create db:migrate
+```
+
+## Gems
+
+```
+ruby '2.6.5'
+gem 'rails', '~> 5.2.4'
+gem 'pg', '>= 0.18', '< 2.0'
+gem 'puma', '~> 3.11'
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.2'
+gem 'turbolinks', '~> 5'
+gem 'jbuilder', '~> 2.5'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+```
+
+## Serve
+
+```
+rails s
+```
+
+## Deploy
+Push to Heroku
+
+```
+heroku create --remote heroku-18 --stack heroku-18
+git push heroku-18 master
+heroku run rails db:migrate
+```
+
+## テーブルスキーマ
+
+### user
 
 |項番|カラム論理名|カラム物理名|型|
 |:----|:----|:----|:----|
@@ -11,7 +71,7 @@ user
 |3|メールアドレス|email|string|
 |4|パスワード|password_digest|string|
 
-task
+### task
 
 |項番|カラム論理名|カラム物理名|型|
 |:----|:----|:----|:----|
@@ -23,7 +83,7 @@ task
 |7|内容|content|text|
 |8|ユーザーid|user_id|integer|
 
-label
+### label
 
 |項番|カラム論理名|カラム物理名|型|
 |:----|:----|:----|:----|
