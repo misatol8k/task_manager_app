@@ -28,7 +28,7 @@ RSpec.describe 'タスク作成機能', type: :system do
         visit new_task_path
         fill_in 'task_name', with: 'テストを書く'
         fill_in 'task_content', with: 'RSpecでテストを書く'
-        click_button 'Create Task'
+        click_button '登録する'
       end
       it '作成したタスクが表示される' do
         expect(page).to have_content 'RSpecでテストを書く'
