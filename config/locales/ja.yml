@@ -228,15 +228,17 @@ ja:
     task_id: タスクid
     created_at: 作成日
     updated_at: 更新日
+    new: 新規登録
     show: 詳細
     edit: 編集
     index: 一覧
     destroy: 削除
     back: 戻る
     delete_name: "「%{name}」を削除しますか？"
+    update_notice: 更新しました
+    create_notice: 新規登録しました
+    destroy_notice: "「%{name}」を削除しました"
     tasks:
-      new: タスク登録
-      name: タスク名
       index:
         title: タスク一覧
       edit:
