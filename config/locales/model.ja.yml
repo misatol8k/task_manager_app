@@ -26,6 +26,5 @@ ja:
         label: ラベル
         user_id: ユーザーid
         task_id: タスクid
-    attributes:
       created_at: 作成日
       updated_at: 更新日
