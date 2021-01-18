@@ -1,11 +1,11 @@
 <% provide(:title, t('view.tasks.index.title')) %>
-<%= link_to t('view.tasks.new'), new_task_path %>
+<%= link_to t('view.new'), new_task_path %>
 <br><br>
 <table>
   <thead>
     <tr>
-      <th>task.name</th>
-      <th>task.content</th>
+      <th><%= Task.human_attribute_name(:name) %></th>
+      <th><%= Task.human_attribute_name(:content) %></th>
     </tr>
   </thead>
   <tbody>
