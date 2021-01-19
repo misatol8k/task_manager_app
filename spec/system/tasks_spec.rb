@@ -19,6 +19,16 @@ RSpec.describe 'タスク管理機能', type: :system do
       expect(task_list[1]).to have_content 'タスク1'
     end
   end
+  context 'タスクを終了期限の降順でソートした場合' do
+    before do
+      click_link '終了期限でソートする'
+    end
+    it '終了期限の新しいタスクが一番上に表示される' do
+      task_list = all('.task_end_date')
+      expect(task_list[0]).to have_content '2021-01-16'
+      expect(task_list[1]).to have_content '2021-01-15'
+    end
+  end
 end
 
 RSpec.describe 'タスク作成機能', type: :system do
