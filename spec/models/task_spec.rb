@@ -9,7 +9,7 @@ RSpec.describe Task, type: :model do
           content: 'タスクの内容サンプル'
         )
         task.valid?
-        expect(task.errors[:name]).to include("can't be blank")
+        expect(task.errors[:name]).to include("を入力してください")
       end
     end
     context 'タスクの詳細が空の場合' do
@@ -19,13 +19,17 @@ RSpec.describe Task, type: :model do
           content: nil
         )
         task.valid?
-        expect(task.errors[:content]).to include("can't be blank")
+        expect(task.errors[:content]).to include("を入力してください")
       end
     end
     # タスク名があれば有効な状態であること
     context 'タスクのタイトルと詳細に内容が記載されている場合' do
       it "is valid with a name, content" do
-        task = FactoryBot.create(:task)
+        task = Task.new(
+          name: 'タスク名サンプル',
+          content: 'タスクの内容サンプル'
+        )
+        task.valid?
         expect(task).to be_valid
       end
     end
