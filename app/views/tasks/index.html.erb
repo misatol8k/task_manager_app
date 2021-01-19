@@ -1,11 +1,14 @@
 <% provide(:title, t('view.tasks.index.title')) %>
 <%= link_to t('view.new'), new_task_path %>
 <br><br>
+<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
 <table>
   <thead>
     <tr>
       <th><%= Task.human_attribute_name(:name) %></th>
       <th><%= Task.human_attribute_name(:content) %></th>
+      <th><%= Task.human_attribute_name(:created_at) %></th>
+      <th><%= Task.human_attribute_name(:end_date) %></th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +16,8 @@
       <tr>
         <td class="task_row"><%= task.name %></td>
         <td><%= task.content %></td>
+        <td><%= task.created_at %></td>
+        <td class="task_end_date">><%= task.end_date %></td>
         <td><%= link_to t('view.show'), task %></td>
         <td><%= link_to t('view.edit'), edit_task_path(task) %></td>
         <td><%= link_to t('view.destroy'), task, method: :delete, data: { confirm: t('view.delete_name', name: task.name)} %></td>
