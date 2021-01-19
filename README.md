@@ -89,5 +89,4 @@ heroku run rails db:migrate
 |:----|:----|:----|:----|
 |1|ラベルid|id|integer|
 |2|ラベル|label|string|
-|3|ユーザーid|user_id|integer|
-|4|タスクid|task_id|integer|
+|3|タスクid|task_id|integer|
