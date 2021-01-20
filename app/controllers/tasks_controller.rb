@@ -2,11 +2,22 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:key_name]
-      @tasks = Task.where('name LIKE ?', "%#{params[:key_name]}%")
+    if params[:task].present?
+      if params[:task][:name].present? && params[:task][:status].present?
+        # SQLインジェクションの対応する
+        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%").where(status: params[:task][:status])
+      elsif params[:task][:name].present?
+        # 大丈夫
+        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%")
+      elsif params[:task][:status].present?
+        # 大丈夫
+        @tasks = Task.where(status: params[:task][:status])
+      end
     elsif params[:sort_expired]
+      # 大丈夫
       @tasks = Task.all.order(end_date: :desc)
     else
+      # 大丈夫
       @tasks = Task.all.order(created_at: :desc)
     end
   end
@@ -52,7 +63,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.required(:task).permit(:name, :content, :end_date, :status, :id)
+    params.required(:task).permit(:name, :content, :end_date, :status, :id,)
   end
 
   # def task_search_params
