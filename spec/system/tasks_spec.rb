@@ -32,6 +32,37 @@ RSpec.describe 'タスク管理機能', type: :system do
       expect(task_list[2]).to have_content '2021-01-14'
     end
   end
+  describe '検索機能' do
+    context 'タイトルであいまい検索をした場合' do
+      it "検索キーワードを含むタスクで絞り込まれる" do
+        fill_in 'タスク名', with: 'スク1'
+        select '', from: 'ステータス'
+        click_button 'Search'
+        expect(page).to have_content 'タスク1'
+        expect(page).not_to have_content 'タスク2-1'
+        expect(page).not_to have_content 'タスク2-2'
+      end
+    end
+    context 'ステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        select '着手中', from: 'ステータス'
+        click_button 'Search'
+        expect(page).not_to have_content 'タスク1'
+        expect(page).to have_content 'タスク2-1'
+        expect(page).not_to have_content 'タスク2-2'
+      end
+    end
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        fill_in 'タスク名', with: 'タスク2'
+        select '未着手', from: 'ステータス'
+        click_button 'Search'
+        expect(page).not_to have_content 'タスク1'
+        expect(page).not_to have_content 'タスク2-1'
+        expect(page).to have_content 'タスク2-2'
+      end
+    end
+  end
 end
 
 RSpec.describe 'タスク作成機能', type: :system do
