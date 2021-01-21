@@ -4,20 +4,16 @@ class TasksController < ApplicationController
   def index
     if params[:task].present?
       if params[:task][:name].present? && params[:task][:status].present?
-        # SQLインジェクションの対応する
-        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%").where(status: params[:task][:status])
+        # SQLインジェクションの対応する search_name_status
+        @tasks = Task.search_name(params[:task][:name]).search_status(params[:task][:status])
       elsif params[:task][:name].present?
-        # 大丈夫
-        @tasks = Task.where('name LIKE ?', "%#{params[:task][:name]}%")
+        @tasks = Task.search_name(params[:task][:name])
       elsif params[:task][:status].present?
-        # 大丈夫
-        @tasks = Task.where(status: params[:task][:status])
+        @tasks = Task.search_status(params[:task][:status])
       end
     elsif params[:sort_expired]
-      # 大丈夫
-      @tasks = Task.all.order(end_date: :desc)
+      @tasks = Task.all.sort_end_date
     else
-      # 大丈夫
       @tasks = Task.all.order(created_at: :desc)
     end
   end
@@ -65,8 +61,4 @@ class TasksController < ApplicationController
   def task_params
     params.required(:task).permit(:name, :content, :end_date, :status, :id,)
   end
-
-  # def task_search_params
-  #   params.required(:key_name).permit(:key_name)
-  # end
 end
