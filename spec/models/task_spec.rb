@@ -6,7 +6,10 @@ RSpec.describe Task, type: :model do
       it "is invalid without a name" do
         task = Task.new(
           name: nil,
-          content: 'タスクの内容サンプル'
+          content: 'タスクの内容サンプル',
+          end_date: '2021-01-16',
+          status: '未着手',
+          priority: '低'
         )
         task.valid?
         expect(task.errors[:name]).to include("を入力してください")
@@ -16,7 +19,10 @@ RSpec.describe Task, type: :model do
       it 'is invalid without a content' do
         task = Task.new(
           name: 'タスク名サンプル',
-          content: nil
+          content: nil,
+          end_date: '2021-01-16',
+          status: '未着手',
+          priority: '低'
         )
         task.valid?
         expect(task.errors[:content]).to include("を入力してください")
@@ -27,7 +33,10 @@ RSpec.describe Task, type: :model do
       it "is valid with a name, content" do
         task = Task.new(
           name: 'タスク名サンプル',
-          content: 'タスクの内容サンプル'
+          content: 'タスクの内容サンプル',
+          end_date: '2021-01-16',
+          status: '未着手',
+          priority: '低'
         )
         task.valid?
         expect(task).to be_valid
