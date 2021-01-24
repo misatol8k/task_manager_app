@@ -5,13 +5,33 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= yield(:title) %>
-    <p id="notice"><%= notice %></p>
-    <%= yield %>
+    <header class="blog-header py-3">
+      <div class="container nav-scroller py-1 mb-2">
+        <ul class="nav d-flex nav-pills">
+          <li role="presentation" class="active"><a class="p-2 text-muted" href="#">Top</a></li>
+          <li role="presentation"><%= link_to t('view.index'), tasks_path, class: "p-2 text-muted" %></li>
+          <li role="presentation"><%= link_to t('view.new'), new_task_path, class: "p-2 text-muted" %></li>
+          <li role="presentation"><a href="#">Profile</a></li>
+          <li role="presentation"><a href="#">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <div class="container">
+      <div class="name">
+        <%= yield(:title) %>
+      </div>
+      <p id="notice"><%= notice %></p>
+      <%= yield %>
+    </div>
+    <footer class="footer mt-auto py-3">
+      <div class="container">
+        <span class="text-muted">footer.</span>
+      </div>
+    </footer>
   </body>
 </html>
