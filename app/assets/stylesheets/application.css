@@ -14,3 +14,13 @@
  *= require_tree .
  *= require_self
  */
+ header {
+   background-color: #97cdf3;
+ }
+ th {
+  min-width: : max-content;
+}
+
+ footer {
+  background-color: #97cdf3;
+}
