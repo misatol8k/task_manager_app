@@ -2,7 +2,7 @@ Faker::Config.locale = :ja
 
 User.create!(name: "test1",
             email: "test1@test.com",
-            password_digest: "password"
+            password: "password"
 )
 # 15.times do |n|
 #   name = Faker::Book.title
