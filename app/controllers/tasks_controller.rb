@@ -2,7 +2,22 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    if params[:task].present?
+      if params[:task][:name].present? && params[:task][:status].present?
+        # SQLインジェクションの対応する search_name_status
+        @tasks = Task.search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
+      elsif params[:task][:name].present?
+        @tasks = Task.search_name(params[:task][:name]).page(params[:page])
+      elsif params[:task][:status].present?
+        @tasks = Task.search_status(params[:task][:status]).page(params[:page])
+      end
+    elsif params[:sort_expired]
+      @tasks = Task.all.sort_end_date.page(params[:page])
+    elsif params[:sort_priority]
+      @tasks = Task.all.sort_priority.page(params[:page])
+    else
+      @tasks = Task.all.order(created_at: :desc).page(params[:page])
+    end
   end
 
   def new
@@ -46,6 +61,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.required(:task).permit(:name, :content, :id)
+    params.required(:task).permit(:name, :content, :end_date, :status, :priority, :id,)
   end
 end

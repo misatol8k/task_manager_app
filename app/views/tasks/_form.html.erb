@@ -9,15 +9,27 @@
     </ul>
   </div>
   <% end %>
-  <div class="name">
+  <div class="form-group col-xs-12 col-md-8">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class:"form-control", placeholder:"料理をする" %>
   </div>
-  <div class="name">
+  <div class="form-group col-xs-12 col-md-8">
     <%= form.label :content %>
-    <%= form.text_area :content %>
+    <%= form.text_area :content, class:"form-control", placeholder:"レシピを探す、買い物、…" %>
   </div>
-  <div class="actions">
+  <div class="form-group col-xs-12 col-md-8">
+    <%= form.label :end_date %>
+    <%= form.date_select :end_date, class:"form-control" %>
+  </div>
+  <div class="form-group col-xs-12 col-md-4">
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses.keys.to_a, {}, class:"form-control" %>
+  </div>
+  <div class="form-group col-xs-12 col-md-4">
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.keys.to_a, {}, class:"form-control" %>
+  </div>
+  <div class="actions form-group">
     <%= form.submit %>
   </div>
 <% end %>
