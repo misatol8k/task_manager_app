@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :current_user_required, only: [:show, :edit]
 
   def new
     if logged_in?
@@ -43,6 +44,12 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def current_user_required
+    unless current_user.id == @user.id
+      redirect_to tasks_url, notice: "このページは表示できません"
+    end
   end
 
   private
