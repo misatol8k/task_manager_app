@@ -36,10 +36,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to new_session_path, notice: '削除しました！' }
-      format.json { head :no_content }
-    end
+    redirect_to new_session_path, notice: '削除しました！'
   end
 
   def set_user
