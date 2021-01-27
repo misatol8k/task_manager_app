@@ -6,5 +6,6 @@ class User < ApplicationRecord
   before_validation { email.downcase! }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
+  scope :selected,  -> { select(:name, :email, :admin, :created_at, :updated_at, :id) }
 
 end
