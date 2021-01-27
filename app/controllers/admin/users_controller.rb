@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :require_admin
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -46,5 +47,9 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation, :id)
+  end
+
+  def require_admin
+    redirect_to tasks_url, notice: "管理者以外はアクセスできません" unless current_user.admin?
   end
 end

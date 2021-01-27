@@ -19,6 +19,9 @@
           <% if logged_in? %>
             <li role="presentation"><%= link_to 'Profile', user_path(current_user.id), class: "p-2 text-muted" %></li>
             <li role="presentation"><%= link_to 'Logout', session_path(current_user.id), method: :delete, class: "p-2 text-muted" %></li>
+            <% if current_user.admin? %>
+            <li role="presentation"><%= link_to 'ユーザー一覧', admin_users_path, class: "p-2 text-muted" %></li>            
+            <% end %>
           <% else %>
             <li role="presentation"><%= link_to 'Sign up', new_user_path, class: "p-2 text-muted" %></li>
             <li role="presentation"><%= link_to 'Login', new_session_path, class: "p-2 text-muted" %></li>
