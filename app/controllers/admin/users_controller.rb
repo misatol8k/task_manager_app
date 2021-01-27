@@ -15,13 +15,14 @@ class Admin::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all.order(created_at: :desc)
+    @users = User.select(:name, :email, :admin, :created_at, :updated_at, :id).order(created_at: :desc)
   end
 
   def edit
   end
 
   def show
+    @tasks = @user.tasks.select(:name, :content, :created_at, :end_date, :status, :priority, :id).page(params[:page])
   end
 
   def update
