@@ -1,2 +1,29 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<% provide(:title, t('view.tasks.index.title')) %>
+<p>ユーザー名:<strong> <%= @user.name %></strong></p>
+<div class="table-responsive">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th><%= Task.human_attribute_name(:name) %></th>
+        <th><%= Task.human_attribute_name(:content) %></th>
+        <th><%= Task.human_attribute_name(:created_at) %></th>
+        <th><%= Task.human_attribute_name(:end_date) %></th>
+        <th><%= Task.human_attribute_name(:status) %></th>
+        <th><%= Task.human_attribute_name(:priority) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td class="task_row"><%= task.name %></td>
+          <td><%= task.content %></td>
+          <td><%= task.created_at.strftime('%Y-%m-%d') %></td>
+          <td class="task_end_date"><%= task.end_date %></td>
+          <td class="task_status"><%= task.status %></td>
+          <td class="task_priority"><%= task.priority %></td>
+        </tr>
+      <% end %>
+      <%= paginate @tasks %>
+    </tbody>
+  </table>
+</div>
