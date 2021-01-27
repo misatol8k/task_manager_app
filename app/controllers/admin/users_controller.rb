@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def index
-    @users = User.selected.order(created_at: :desc)
+    @users = User.all.includes(:tasks)
   end
 
   def edit
