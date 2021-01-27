@@ -28,15 +28,16 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      render :show, notice: "ユーザー「#{@user.name}」を更新しました！"
+      redirect_to admin_users_path, notice: "ユーザー「#{@user.name}」を更新しました！"
     else
       render :edit
     end
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, notice: "ユーザー「#{@user.name}」を削除しました！"
+    if @user.destroy
+      redirect_to admin_users_path, notice: "ユーザー「#{@user.name}」を削除しました！"
+    end
   end
 
   def set_user
