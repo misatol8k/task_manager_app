@@ -1,5 +1,8 @@
 require 'rails_helper'
 RSpec.describe Task, type: :model do
+  before do
+    @user_a = FactoryBot.create(:user)
+  end
   describe 'バリデーションのテスト' do
     # タスク名がなければ無効な状態であること
     context 'タスク名が空の場合' do
@@ -9,7 +12,8 @@ RSpec.describe Task, type: :model do
           content: 'タスクの内容サンプル',
           end_date: '2021-01-16',
           status: '未着手',
-          priority: '低'
+          priority: '低',
+          user: @user_a
         )
         task.valid?
         expect(task.errors[:name]).to include("を入力してください")
@@ -22,7 +26,8 @@ RSpec.describe Task, type: :model do
           content: nil,
           end_date: '2021-01-16',
           status: '未着手',
-          priority: '低'
+          priority: '低',
+          user: @user_a
         )
         task.valid?
         expect(task.errors[:content]).to include("を入力してください")
@@ -36,7 +41,8 @@ RSpec.describe Task, type: :model do
           content: 'タスクの内容サンプル',
           end_date: '2021-01-16',
           status: '未着手',
-          priority: '低'
+          priority: '低',
+          user: @user_a
         )
         task.valid?
         expect(task).to be_valid
@@ -44,9 +50,9 @@ RSpec.describe Task, type: :model do
     end
   end
   describe '検索機能' do
-    let!(:task) { FactoryBot.create(:task) }
-    let!(:second_task) { FactoryBot.create(:second_task) }
-    let!(:third_task) { FactoryBot.create(:third_task) }
+    let!(:task) { FactoryBot.create(:task, user: @user_a) }
+    let!(:second_task) { FactoryBot.create(:second_task, user: @user_a) }
+    let!(:third_task) { FactoryBot.create(:third_task, user: @user_a) }
     context 'scopeメソッドでタイトルのあいまい検索をした場合' do
       it "検索キーワードを含むタスクが絞り込まれる" do
         expect(Task.search_name('タスク1')).to include(task)
