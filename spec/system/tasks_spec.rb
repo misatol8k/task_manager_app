@@ -30,6 +30,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクを終了期限の降順でソートした場合' do
       before do
         click_link '終了期限▼'
+        sleep 1
       end
       it '終了期限の新しいタスクが一番上に表示される' do
         task_list = all('.task_end_date')
@@ -41,6 +42,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクを優先順位の高い順でソートした場合' do
       before do
         click_link '優先順位▼'
+        sleep 1
       end
       it '優先順位の高いタスクが一番上に表示される' do
         task_list = all('.task_priority')
