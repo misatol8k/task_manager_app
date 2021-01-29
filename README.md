@@ -88,5 +88,12 @@ heroku run rails db:migrate
 |項番|カラム論理名|カラム物理名|型|
 |:----|:----|:----|:----|
 |1|ラベルid|id|integer|
-|2|ラベル|label|string|
+|2|ラベル名|name|string|
+
+### labeling
+
+|項番|カラム論理名|カラム物理名|型|
+|:----|:----|:----|:----|
+|1|id|id|integer|
+|2|ラベルid|label_id|integer|
 |3|タスクid|task_id|integer|
