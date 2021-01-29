@@ -13,14 +13,13 @@
     <header class="blog-header py-3">
       <div class="container nav-scroller py-1 mb-2">
         <ul class="nav d-flex nav-pills">
-          <li role="presentation"><a class="p-2 text-muted" href="#">Top</a></li>
-          <li role="presentation"><%= link_to t('view.index'), tasks_path, class: "p-2 text-muted" %></li>
-          <li role="presentation"><%= link_to t('view.new'), new_task_path, class: "p-2 text-muted" %></li>
+          <li role="presentation"><%= link_to t('view.tasks.index.title'), tasks_path, class: "p-2 text-muted" %></li>
+          <li role="presentation"><%= link_to t('view.tasks.new.title'), new_task_path, class: "p-2 text-muted" %></li>
           <% if logged_in? %>
             <li role="presentation"><%= link_to 'Profile', user_path(current_user.id), class: "p-2 text-muted" %></li>
             <li role="presentation"><%= link_to 'Logout', session_path(current_user.id), method: :delete, class: "p-2 text-muted" %></li>
             <% if current_user.admin? %>
-            <li role="presentation"><%= link_to 'ユーザー一覧', admin_users_path, class: "p-2 text-muted" %></li>
+            <li role="presentation"><%= link_to '管理画面', admin_users_path, class: "p-2 text-muted" %></li>
             <% end %>
           <% else %>
             <li role="presentation"><%= link_to 'Sign up', new_user_path, class: "p-2 text-muted" %></li>
@@ -40,7 +39,7 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <span class="text-muted">footer.</span>
+        <span class="text-muted">dammy</span>
       </div>
     </footer>
   </body>

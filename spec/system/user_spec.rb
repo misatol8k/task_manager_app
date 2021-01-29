@@ -92,7 +92,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
       it '管理ユーザはユーザの新規登録ができること' do
         visit admin_users_path
         within '.content' do
-          click_on '新規登録'
+          click_on 'ユーザー登録'
         end
         fill_in '名前', with: 'user_c'
         fill_in 'メールアドレス', with: 'user3@test.com'
