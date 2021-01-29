@@ -234,6 +234,7 @@ ja:
     index: 一覧
     destroy: 削除
     back: 戻る
+    task_count: タスク件数
     delete_name: "「%{name}」を削除しますか？"
     update_notice: 更新しました
     create_notice: 新規登録しました

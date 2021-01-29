@@ -5,6 +5,7 @@ FactoryBot.define do
     end_date { '2021-01-16' }
     status { '未着手' }
     priority { '低' }
+    association :user
   end
   factory :second_task, class: Task do
     name { 'タスク2-1' }
@@ -12,6 +13,7 @@ FactoryBot.define do
     end_date { '2021-01-15' }
     status { '着手中' }
     priority { '高' }
+    association :user
   end
   factory :third_task, class: Task do
     name { 'タスク2-2' }
@@ -19,5 +21,6 @@ FactoryBot.define do
     end_date { '2021-01-14' }
     status { '未着手' }
     priority { '中' }
+    association :user
   end
 end

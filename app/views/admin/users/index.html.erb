@@ -1,0 +1,34 @@
+<h1>管理画面</h1>
+<%= link_to 'ユーザー登録', new_admin_user_path, class: "btn btn-primary" %>
+<br>
+<div class="table-responsive">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th><%= User.human_attribute_name(:name) %></th>
+        <th><%= User.human_attribute_name(:email) %></th>
+        <th><%= User.human_attribute_name(:admin) %></th>
+        <th><%= User.human_attribute_name(:created_at) %></th>
+        <th><%= User.human_attribute_name(:updated_at) %></th>
+        <th><%= t('view.task_count') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td class="user_row"><%= user.name %></td>
+          <td class="name"><%= user.email %></td>
+          <td class="name"><%= user.admin? ? 'あり':'なし' %></td>
+          <td class="name"><%= user.created_at %></td>
+          <td class="name"><%= user.updated_at %></td>
+          <td class="name"><%= user.tasks.size %></td>
+          <td><%= link_to t('view.show'),admin_user_path(user) , class: "btn btn-outline-primary btn-sm" %></td>
+          <td><%= link_to t('view.edit'), edit_admin_user_url(user), class: "btn btn-outline-success btn-sm" %></td>
+          <% unless user == current_user %>
+          <td><%= link_to t('view.destroy'), [:admin, user], method: :delete, data: { confirm: t('view.delete_name', name: user.name)}, class: "btn btn-outline-danger btn-sm" %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

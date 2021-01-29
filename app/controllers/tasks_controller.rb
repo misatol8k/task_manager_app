@@ -1,31 +1,32 @@
 class TasksController < ApplicationController
+  before_action :login_required
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:task].present?
       if params[:task][:name].present? && params[:task][:status].present?
         # SQLインジェクションの対応する search_name_status
-        @tasks = Task.search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
+        @tasks = current_user.tasks.selected.search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
       elsif params[:task][:name].present?
-        @tasks = Task.search_name(params[:task][:name]).page(params[:page])
+        @tasks = current_user.tasks.selected.search_name(params[:task][:name]).page(params[:page])
       elsif params[:task][:status].present?
-        @tasks = Task.search_status(params[:task][:status]).page(params[:page])
+        @tasks = current_user.tasks.selected.search_status(params[:task][:status]).page(params[:page])
       end
     elsif params[:sort_expired]
-      @tasks = Task.all.sort_end_date.page(params[:page])
+      @tasks = current_user.tasks.selected.sort_end_date.page(params[:page])
     elsif params[:sort_priority]
-      @tasks = Task.all.sort_priority.page(params[:page])
+      @tasks = current_user.tasks.selected.sort_priority.page(params[:page])
     else
-      @tasks = Task.all.order(created_at: :desc).page(params[:page])
+      @tasks = current_user.tasks.selected.order(created_at: :desc).page(params[:page])
     end
   end
 
   def new
-    @task = Task.new
+    @task = current_user.tasks.build
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     elsif @task.save
@@ -57,10 +58,10 @@ class TasksController < ApplicationController
   private
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_params
-    params.required(:task).permit(:name, :content, :end_date, :status, :priority, :id,)
+    params.required(:task).permit(:name, :content, :end_date, :status, :priority, :id, :user_id)
   end
 end

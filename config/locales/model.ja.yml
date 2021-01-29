@@ -19,6 +19,7 @@ ja:
         id: ユーザーid
         name: 名前
         email: メールアドレス
+        admin: 管理者権限
         password: パスワード
         password_confirmation: 確認用パスワード
         current_password: 現在のパスワード
