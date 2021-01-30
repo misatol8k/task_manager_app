@@ -10,6 +10,10 @@ User.create!(name: "user_admin",
             password: "password",
             admin: true
 )
+Label.create!(name: "仕事")
+Label.create!(name: "家事")
+Label.create!(name: "勉強")
+Label.create!(name: "その他")
 # 15.times do |n|
 #   name = Faker::Book.title
 #   content = Faker::Color.name
