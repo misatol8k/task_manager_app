@@ -24,6 +24,15 @@
   <div class="row">
     <div class="col-xs-4 col-md-2"><strong><%= Task.human_attribute_name(:status) %></strong></div>
     <div class="col-xs-6 col-md-4"><%= @task.status %></div>
+  <div class="row">
+    <div class="col-xs-4 col-md-2">
+      <strong><%= Label.human_attribute_name(:name) %></strong>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <% @task.labels.each do |label| %>
+        <%= label.name %>
+      <% end %>
+    </div>
   </div>
 </div>
 <br>
