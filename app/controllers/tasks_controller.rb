@@ -50,7 +50,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_url, notice: t('view.uptade_notice')
+      redirect_to tasks_url, notice: t('view.update_notice')
     else
       render :edit
     end
