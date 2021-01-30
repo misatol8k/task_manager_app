@@ -2,28 +2,50 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xs-4 col-md-2"><strong><%= Task.human_attribute_name(:name) %></strong></div>
-    <div class="col-xs-6 col-md-4"><%= @task.name %></div>
+    <div class="col-xs-4 col-md-2">
+      <strong><%= Task.human_attribute_name(:name) %></strong>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <%= @task.name %>
+    </div>
   </div>
 
   <div class="row">
-    <div class="col-xs-4 col-md-2"><strong><%= Task.human_attribute_name(:content) %></strong></div>
-    <div class="col-xs-6 col-md-4"><%= @task.content %></div>
+    <div class="col-xs-4 col-md-2">
+      <strong><%= Task.human_attribute_name(:content) %></strong>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <%= @task.content %>
+    </div>
   </div>
 
   <div class="row">
-    <div class="col-xs-4 col-md-2"><strong><%= Task.human_attribute_name(:created_at) %></strong></div>
-    <div class="col-xs-6 col-md-4"><%= @task.created_at.strftime('%Y-%m-%d') %></div>
+    <div class="col-xs-4 col-md-2">
+      <strong><%= Task.human_attribute_name(:created_at) %></strong>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <%= @task.created_at.strftime('%Y-%m-%d') %>
+    </div>
   </div>
 
   <div class="row">
-    <div class="col-xs-4 col-md-2"><strong><%= Task.human_attribute_name(:end_date) %></strong></div>
-    <div class="col-xs-6 col-md-4"><%= @task.end_date %></div>
+    <div class="col-xs-4 col-md-2">
+      <strong><%= Task.human_attribute_name(:end_date) %></strong>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <%= @task.end_date %>
+    </div>
   </div>
 
   <div class="row">
-    <div class="col-xs-4 col-md-2"><strong><%= Task.human_attribute_name(:status) %></strong></div>
-    <div class="col-xs-6 col-md-4"><%= @task.status %></div>
+    <div class="col-xs-4 col-md-2">
+      <strong><%= Task.human_attribute_name(:status) %></strong>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <%= @task.status %>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-xs-4 col-md-2">
       <strong><%= Label.human_attribute_name(:name) %></strong>
@@ -36,6 +58,10 @@
   </div>
 </div>
 <br>
-<%= link_to t('view.index'), tasks_path, class: "btn btn-outline-primary btn-sm" %>
-<%= link_to t('view.edit'), edit_task_path(@task), class: "btn btn-outline-success btn-sm" %>
-<%= link_to t('view.destroy'), @task, method: :delete, data: { confirm: t('view.delete_name', name: @task.name)}, class: "btn btn-outline-danger btn-sm" %>
+<%= link_to t('view.index'), tasks_path,
+  class: "btn btn-outline-primary btn-sm" %>
+<%= link_to t('view.edit'), edit_task_path(@task),
+  class: "btn btn-outline-success btn-sm" %>
+<%= link_to t('view.destroy'), @task, method: :delete,
+  class: "btn btn-outline-danger btn-sm",
+  data: { confirm: t('view.delete_name', name: @task.name)} %>
