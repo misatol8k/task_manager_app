@@ -3,17 +3,15 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:task].present?
-      if params[:task][:name].present? && params[:task][:status].present?
-        # SQLインジェクションの対応する search_name_status
-        @tasks = current_user.tasks.selected.includes(:labels).search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
-      elsif params[:task][:name].present?
-        @tasks = current_user.tasks.selected.includes(:labels).search_name(params[:task][:name]).page(params[:page])
-      elsif params[:task][:status].present?
-        @tasks = current_user.tasks.selected.includes(:labels).search_status(params[:task][:status]).page(params[:page])
-      end
-
-    elsif params[:sort_expired]
+    if params[:task].present? && params[:task][:label_id].present?
+      @labels = Labeling.where(label_id: params[:task][:label_id]).pluck(:task_id)
+      @tasks = Task.selected.includes(:labels).where(id: @labels).where(user_id: current_user.id).search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
+    elsif params[:task].present?
+      @tasks = current_user.tasks.selected.includes(:labels).search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
+    else
+      @tasks = current_user.tasks.selected.includes(:labels).order(created_at: :desc).page(params[:page])
+    end
+    if params[:sort_expired]
       @tasks = current_user.tasks.selected.includes(:labels).sort_end_date.page(params[:page])
     elsif params[:sort_priority]
       @tasks = current_user.tasks.selected.includes(:labels).sort_priority.page(params[:page])
