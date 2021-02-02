@@ -13,7 +13,7 @@
 
   <div class="form-group">
     <%= form.label :label %>
-    <%= form.select :label_id, Label.all.collect { |p| [ p.name, p.id ] }, include_blank: true, class: "form-control" %>
+    <%= form.select :label_id, Label.all.collect { |p| [ p.name, p.id ] }, include_blank: true, class: "form-control task_label" %>
   </div>
 
   <div class="actions form-group">
