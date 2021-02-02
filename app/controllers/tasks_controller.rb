@@ -8,10 +8,7 @@ class TasksController < ApplicationController
       @tasks = Task.selected.includes(:labels).where(id: @labels).where(user_id: current_user.id).search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
     elsif params[:task].present?
       @tasks = current_user.tasks.selected.includes(:labels).search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
-    else
-      @tasks = current_user.tasks.selected.includes(:labels).order(created_at: :desc).page(params[:page])
-    end
-    if params[:sort_expired]
+    elsif params[:sort_expired]
       @tasks = current_user.tasks.selected.includes(:labels).sort_end_date.page(params[:page])
     elsif params[:sort_priority]
       @tasks = current_user.tasks.selected.includes(:labels).sort_priority.page(params[:page])
