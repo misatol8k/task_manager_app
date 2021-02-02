@@ -17,7 +17,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
         fill_in 'メールアドレス', with: 'user3@test.com'
         fill_in 'パスワード', with: 'password'
         fill_in '確認用パスワード', with: 'password'
-        click_button '登録する'
+        click_on '登録する'
         expect(page).to have_content '名前: user_c'
       end
     end
@@ -98,7 +98,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
         fill_in 'メールアドレス', with: 'user3@test.com'
         fill_in 'パスワード', with: 'password'
         fill_in '確認用パスワード', with: 'password'
-        click_button '登録する'
+        click_on '登録する'
         expect(page).to have_content 'ユーザー「user_c」を登録しました'
       end
       it '管理ユーザはユーザの詳細画面にアクセスできること' do
@@ -108,7 +108,7 @@ RSpec.describe 'ユーザー管理機能', type: :system do
       it '管理ユーザはユーザの編集画面からユーザを編集できること' do
         visit edit_admin_user_path(@user_b.id)
         fill_in '名前', with: 'user_b_edit'
-        click_button '更新する'
+        click_on '更新する'
         expect(page).to have_content 'ユーザー「user_b_edit」を更新しました'
       end
       it '管理ユーザはユーザの削除をできること' do
