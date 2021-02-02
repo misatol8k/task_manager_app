@@ -3,21 +3,17 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:task].present?
-      if params[:task][:name].present? && params[:task][:status].present?
-        # SQLインジェクションの対応する search_name_status
-        @tasks = current_user.tasks.selected.search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
-      elsif params[:task][:name].present?
-        @tasks = current_user.tasks.selected.search_name(params[:task][:name]).page(params[:page])
-      elsif params[:task][:status].present?
-        @tasks = current_user.tasks.selected.search_status(params[:task][:status]).page(params[:page])
-      end
+    if params[:task].present? && params[:task][:label_id].present?
+      @labels = Labeling.where(label_id: params[:task][:label_id]).pluck(:task_id)
+      @tasks = Task.selected.includes(:labels).where(id: @labels).where(user_id: current_user.id).search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
+    elsif params[:task].present?
+      @tasks = current_user.tasks.selected.includes(:labels).search_name(params[:task][:name]).search_status(params[:task][:status]).page(params[:page])
     elsif params[:sort_expired]
-      @tasks = current_user.tasks.selected.sort_end_date.page(params[:page])
+      @tasks = current_user.tasks.selected.includes(:labels).sort_end_date.page(params[:page])
     elsif params[:sort_priority]
-      @tasks = current_user.tasks.selected.sort_priority.page(params[:page])
+      @tasks = current_user.tasks.selected.includes(:labels).sort_priority.page(params[:page])
     else
-      @tasks = current_user.tasks.selected.order(created_at: :desc).page(params[:page])
+      @tasks = current_user.tasks.selected.includes(:labels).order(created_at: :desc).page(params[:page])
     end
   end
 
@@ -49,7 +45,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_url, notice: t('view.uptade_notice')
+      redirect_to tasks_url, notice: t('view.update_notice')
     else
       render :edit
     end
@@ -58,10 +54,10 @@ class TasksController < ApplicationController
   private
 
   def set_task
-    @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.includes(:labels).find(params[:id])
   end
 
   def task_params
-    params.required(:task).permit(:name, :content, :end_date, :status, :priority, :id, :user_id)
+    params.required(:task).permit(:name, :content, :end_date, :status, :priority, :id, :user_id, {label_ids: []} )
   end
 end
